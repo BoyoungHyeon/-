@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+
+namespace MysqlConnect
+{
+    public partial class Form1 : Form
+    {
+        MySqlConnection connection =
+            new MySqlConnection("SERVER=127.0.0.1;PORT=3307;DATABASE=member1;UID=root;PASSWORD=111111;");
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        /*private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+        */
+        private void JoinButton_Click(object sender, EventArgs e)
+        {
+            string insertquery = "INSERT INTO member_tb(name,age) VALUES('" + NameBox.Text + "'," + AgeBox.Text + ")";
+           // string connectionString = "SERVER=127.0.0.1;PORT=3307;DATABASE=member1;UID=root;PASSWORD=111111;"; MySqlConnection connection = new MySqlConnection(connectionString);connection.Open();
+            connection.Open();
+            MySqlCommand command = new MySqlCommand(insertquery, connection);
+            try
+            {
+                if(command.ExecuteNonQuery() ==1)
+                {
+                    MessageBox.Show("가입성공");
+                }
+                else
+                {
+                    MessageBox.Show("가입실패");
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            connection.Close();
+        }
+
+        private void NameBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
+aa
